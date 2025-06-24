@@ -1,5 +1,11 @@
 <h1>{{ car.brand }} {{ car.model }} ({{ car.year }})</h1>
 
+{% if car.image %}
+    <img src="{{ car.image.url }}" alt="Фото авто" style="max-width:400px;"><br>
+{% else %}
+    <p><em>Фото відсутнє</em></p>
+{% endif %}
+
 <ul>
     <li><strong>Ціна за день:</strong> {{ car.price_per_day }} $</li>
     <li><strong>Рік випуску:</strong> {{ car.year }}</li>
@@ -7,5 +13,4 @@
     <li><strong>Розхід пального:</strong> {{ car.fuel_consumption }} л/100км</li>
     <li><strong>Колір:</strong> {{ car.color }}</li>
 </ul>
-
 <a href="{% url 'all_cars' %}">← Повернутись до списку</a>

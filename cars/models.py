@@ -6,8 +6,9 @@ class Car(models.Model):
     year = models.PositiveIntegerField()
     price_per_day = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
-    fuel_consumption = models.DecimalField(max_digits=5, decimal_places=2)  # л/100км
+    fuel_consumption = models.DecimalField(max_digits=5, decimal_places=2)
     color = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='car_images/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year})"

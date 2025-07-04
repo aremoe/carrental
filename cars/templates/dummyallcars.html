@@ -1,0 +1,14 @@
+<h1>Усі автомобілі</h1>
+{% if cars %}
+    <ul>
+    {% for car in page_obj %}
+        <li>
+            {{ car.brand }} {{ car.model }} - {{ car.year }} - {{ car.price_per_day }}$/день
+            [<a href="{% url 'car_detail' car.id %}">Детальніше</a>]
+            [<a href="{% url 'edit_car' car.id %}">Редагувати</a>]
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Немає жодного автомобіля.</p>
+{% endif %}

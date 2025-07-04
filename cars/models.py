@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 class Car(models.Model):
     brand = models.CharField(max_length=100)
@@ -12,3 +13,14 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model} ({self.year})"
+
+class Rental(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15, validators=[MinLengthValidator(9)])
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    def __str__(self):
+        return f'{self.name} - {self.car}'

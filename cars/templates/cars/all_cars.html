@@ -5,6 +5,7 @@
     <li>
       {{ car.brand }} {{ car.model }} — {{ car.price_per_day }} грн/день
       <a href="{% url 'car_detail' car.id %}">Детальніше</a>
+      <a href="{% url 'rent_car' %}">Орендувати авто</a>
     </li>
   {% empty %}
     <li>Автомобілі відсутні</li>

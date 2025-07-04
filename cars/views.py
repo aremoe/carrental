@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import RentalForm
 from .models import Car
 from .forms import CarForm
 
@@ -39,3 +40,14 @@ def edit_car(request, car_id):
     else:
         form = CarForm(instance=car)
     return render(request, 'cars/car_form.html', {'form': form, 'title': 'Редагувати автомобіль'})
+
+
+def rent_car(request):
+    if request.method == 'POST':
+        form = RentalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'cars/rental_success.html')
+    else:
+        form = RentalForm()
+    return render(request, 'cars/rent_car.html', {'form': form})

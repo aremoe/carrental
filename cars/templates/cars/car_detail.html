@@ -16,3 +16,13 @@
 <a href="{% url 'all_cars' %}">← Повернутись до списку</a>
 <a href="{% url 'edit_car' car.id %}">Редагувати</a>
 <a href="{% url 'rent_car' %}">Орендувати авто</a>
+
+<h3>Заброньовані дати:</h3>
+<ul>
+  {% for booking in bookings %}
+    <li>{{ booking.start_date }} – {{ booking.end_date }}</li>
+  {% empty %}
+    <li>Немає активних бронювань</li>
+  {% endfor %}
+</ul>
+

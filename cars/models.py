@@ -15,12 +15,12 @@ class Car(models.Model):
         return f"{self.brand} {self.model} ({self.year})"
 
 class Rental(models.Model):
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    car = models.ForeignKey('Car', on_delete=models.CASCADE, related_name='rentals')
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=15, validators=[MinLengthValidator(9)])
+    phone = models.CharField(max_length=15)
     start_date = models.DateField()
     end_date = models.DateField()
 
     def __str__(self):
-        return f'{self.name} - {self.car}'
+        return f"{self.car} | {self.start_date} — {self.end_date}"

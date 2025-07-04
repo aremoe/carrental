@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User
 
 class Car(models.Model):
     brand = models.CharField(max_length=100)
@@ -24,3 +25,13 @@ class Rental(models.Model):
 
     def __str__(self):
         return f"{self.car} | {self.start_date} — {self.end_date}"
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'car')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.car}"

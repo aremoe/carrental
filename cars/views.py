@@ -2,8 +2,9 @@ from django.core.paginator import Paginator
 from datetime import timedelta
 from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .forms import RentalForm
-from .models import Car, Rental
+from .models import Car, Rental, Favorite
 from .forms import CarForm
 from django.contrib import messages
 
@@ -82,3 +83,19 @@ def rent_car(request):
         form = RentalForm()
 
     return render(request, 'cars/rent_car.html', {'form': form})
+
+@login_required
+def add_to_favorites(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+    Favorite.objects.get_or_create(user=request.user, car=car)
+    return redirect('favorites_list')
+
+@login_required
+def remove_from_favorites(request, car_id):
+    car = get_object_or_404(Car, id=car_id)
+    Favorite.objects.filter(user=request.user, car=car).delete()
+    return redirect('favorites_list')
+
+def favorites_list(request):
+    favorites = Favorite.objects.filter(user=request.user)
+    return render(request, 'cars/favorites.html', {'favorites': favorites})

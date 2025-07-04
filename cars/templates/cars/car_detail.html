@@ -6,6 +6,11 @@
     <p><em>Фото відсутнє</em></p>
 {% endif %}
 
+{% if user.is_authenticated %}
+  <a href="{% url 'add_to_favorites' car.id %}">❤️ Додати в улюблені</a>
+{% endif %}
+
+
 <ul>
     <li><strong>Ціна за день:</strong> {{ car.price_per_day }} $</li>
     <li><strong>Рік випуску:</strong> {{ car.year }}</li>

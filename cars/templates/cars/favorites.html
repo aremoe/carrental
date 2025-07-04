@@ -1,0 +1,11 @@
+<h2>Мої улюблені авто</h2>
+<ul>
+  {% for fav in favorites %}
+    <li>
+      {{ fav.car.brand }} {{ fav.car.model }} —
+      <a href="{% url 'remove_from_favorites' fav.car.id %}">Видалити</a>
+    </li>
+  {% empty %}
+    <li>У вас ще немає улюблених авто</li>
+  {% endfor %}
+</ul>
